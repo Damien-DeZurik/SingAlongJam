@@ -4,9 +4,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
 use Google\Client as Google_Client;
-use Dotenv\Dotenv;
 
 require __DIR__ . '/vendor/autoload.php';
+use Dotenv\Dotenv;
 
 // .env - Load environment variables from the project root directory
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -62,25 +62,24 @@ $app->get('/myello', function ($request, $response) {
 $app->get('/songlist', function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
-    var_dump($_ENV);
+    //var_dump($_ENV);
 
     // Your Google API client logic goes here
     $client = new Google_Client();
     $client->setApplicationName('googleSheetsAPI-SA');
     $client->setScopes(Google_Service_Sheets::SPREADSHEETS_READONLY);
-    $client->setAuthConfig('credentials.json');
-    // $client->setAuthConfig([
-    //     'type' => 'service_account',
-    //     'project_id' => getenv('GOOGLE_PROJECT_ID'),
-    //     'private_key_id' => getenv('GOOGLE_PRIVATE_KEY_ID'),
-    //     'private_key' => str_replace('\\n', "\n", getenv('GOOGLE_PRIVATE_KEY')),
-    //     'client_email' => getenv('GOOGLE_CLIENT_EMAIL'),
-    //     'client_id' => getenv('GOOGLE_CLIENT_ID'),
-    //     'auth_uri' => getenv('GOOGLE_AUTH_URI'),
-    //     'token_uri' => getenv('GOOGLE_TOKEN_URI'),
-    //     'auth_provider_x509_cert_url' => getenv('GOOGLE_AUTH_PROVIDER_X509_CERT_URL'),
-    //     'client_x509_cert_url' => getenv('GOOGLE_CLIENT_X509_CERT_URL')
-    // ]);
+    $client->setAuthConfig([
+        'type' => 'service_account',
+        'project_id' => $_ENV['GOOGLE_PROJECT_ID'],
+        'private_key_id' => $_ENV['GOOGLE_PRIVATE_KEY_ID'],
+        'private_key' => str_replace('\\n', "\n", $_ENV['GOOGLE_PRIVATE_KEY']),
+        'client_email' => $_ENV['GOOGLE_CLIENT_EMAIL'],
+        'client_id' => $_ENV['GOOGLE_CLIENT_ID'],
+        'auth_uri' => $_ENV['GOOGLE_AUTH_URI'],
+        'token_uri' => $_ENV['GOOGLE_TOKEN_URI'],
+        'auth_provider_x509_cert_url' => $_ENV['GOOGLE_AUTH_PROVIDER_X509_CERT_URL'],
+        'client_x509_cert_url' => $_ENV['GOOGLE_CLIENT_X509_CERT_URL'],
+    ]);
     $service = new Google_Service_Sheets($client);
     $spreadsheetId = '1iT0zucmS9y1cMBHIpujU2IYb_ehfkK3Eu1t1QdnNtfg';
     $range = 'Sheet1!A1:D1000'; // Example A1 notation range
