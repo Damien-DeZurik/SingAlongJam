@@ -1,5 +1,9 @@
+<?php require __DIR__ . '/header.phtml'; ?>
+
 <?php foreach ($list as $item): ?>
     <div class="item" style="display: flex; justify-content: center; align-items: center;">
         <h1><a href="<?= $item[3] ?>"><?= $item[0] ?></a><br><small><?= $item[1] ?></small></h1>
     </div>
 <?php endforeach; ?>
+
+<?php require __DIR__ . '/footer.phtml'; ?>
