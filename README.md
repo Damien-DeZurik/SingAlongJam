@@ -24,6 +24,9 @@ In osilabs.com home dir there is a checkout called SingAlongJam
 ssh ddezurik@osilabs.com
 cd ~/SingAlongJam
 git pull
+composer install
+composer update
+
 cd ~/SingAlongJam/bin
 bash ./publish.sh
 ```
