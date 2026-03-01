@@ -1,1 +1,1 @@
-cp -rp ../website/* ~/public_html/SingAlongJam/
+cp -rp ../website/* ~/public_html/singAlongJam/
