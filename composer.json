@@ -1,8 +1,9 @@
 {
     "require": {
         "slim/slim": "4.*",
-        "google/apiclient": "^2.19",
+        "slim/psr7": "^1.5",
         "slim/php-view": "^3.4",
+        "google/apiclient": "^2.19",
         "vlucas/phpdotenv": "^5.6"
     }
 }

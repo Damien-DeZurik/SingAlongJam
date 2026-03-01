@@ -58,7 +58,6 @@ $app->get('/myello', function ($request, $response) {
     return $renderer->render($response, 'songlist.phtml', $viewData);
 })->setName('profile');
 
-
 $app->get('/songlist', function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
