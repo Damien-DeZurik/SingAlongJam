@@ -1,0 +1,1 @@
+cp -rp ../website/* ~/public_html/SingAlongJam/
