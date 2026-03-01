@@ -1,9 +1,20 @@
 <?php require __DIR__ . '/header.phtml'; ?>
 
+
+<!-- The Songs Header Section -->
+<div class="w3-black" id="tour">
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide w3-center">Song List</h2>
+    <p class="w3-opacity w3-center"><i>Remember to hug someone!</i></p><br>
+</div>
+</div>
+
 <?php foreach ($list as $item): ?>
-    <div class="item" style="display: flex; justify-content: center; align-items: center;">
-        <h1><a href="<?= $item[3] ?>"><?= $item[0] ?></a><br><small><?= $item[1] ?></small></h1>
+<div class="w3-card">
+    <div class="item" class="w3-container w3-blue" style="display: flex; justify-content: center; align-items: center;">
+        <h1 class="w3-container"><a href="<?= $item[3] ?>"><?= $item[0] ?></a><br><small><?= $item[1] ?></small></h1>
     </div>
+</div>
 <?php endforeach; ?>
 
 <?php require __DIR__ . '/footer.phtml'; ?>
