@@ -26,7 +26,6 @@ cd ~/SingAlongJam
 git pull
 composer install
 composer update
-
 cd ~/SingAlongJam/bin
 bash ./publish.sh
 ```

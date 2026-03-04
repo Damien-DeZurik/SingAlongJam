@@ -12,24 +12,21 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// App Factory
 $app = AppFactory::create();
 
-// // Define a container and register the view
-// $container = $app->getContainer();
-// $container['view'] = function ($container) {
-//     // Set the templates directory
-//     return new PhpRenderer(__DIR__ . '/../templates/');
-// };
+// Get the default error handler and inject a custom logger if needed
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorHandler = $errorMiddleware->getDefaultErrorHandler();
+$errorHandler->forceContentType('application/json'); // Example: force JSON responses for errors
 
 // Works
-$app->get('/', function (Request $request, Response $response, $args) {
+$app->get("/{$_ENV['BASE_DIR']}/", function (Request $request, Response $response, $args) {
     $response->getBody()->write("Myello?");
     return $response;
 });
 
 // works - JSON output of rows and columns 
-$app->get('/sheet-data', function (Request $request, Response $response, $args) {
+$app->get("/{$_ENV['BASE_DIR']}/sheet-data", function (Request $request, Response $response, $args) {
     // Your Google API client logic goes here
     $client = new Google_Client();
     $client->setApplicationName('googleSheetsAPI-SA');
@@ -46,8 +43,7 @@ $app->get('/sheet-data', function (Request $request, Response $response, $args) 
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-
-$app->get('/myello', function ($request, $response) {
+$app->get("/{$_ENV['BASE_DIR']}/myello", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
     
@@ -58,7 +54,7 @@ $app->get('/myello', function ($request, $response) {
     return $renderer->render($response, 'songlist.phtml', $viewData);
 })->setName('profile');
 
-$app->get('/songlist', function ($request, $response) {
+$app->get("/{$_ENV['BASE_DIR']}/songlist", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
     //var_dump($_ENV);
