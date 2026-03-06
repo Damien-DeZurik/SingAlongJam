@@ -15,6 +15,8 @@ $dotenv->load();
 $app = AppFactory::create();
 
 $app->setBasePath($_ENV['BASE_DIR']);
+
+//var_dump($_ENV);
 //var_dump($app->getBasePath());
 
 // Get the default error handler and inject a custom logger if needed
@@ -24,7 +26,7 @@ $errorHandler->forceContentType('application/json'); // Example: force JSON resp
 
 // Works
 $app->get("/", function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Myello?");
+    $response->getBody()->write("Sing Along Jam");
     return $response;
 });
 
@@ -37,7 +39,7 @@ $app->get("/sheet-data", function (Request $request, Response $response, $args) 
     $client->setAuthConfig('credentials.json');
     $service = new Google_Service_Sheets($client);
     $spreadsheetId = '1iT0zucmS9y1cMBHIpujU2IYb_ehfkK3Eu1t1QdnNtfg';
-    $range = 'Sheet1!A1:D1000'; // Example A1 notation range
+    $range = 'Sheet1!A1:F1000'; // Example A1 notation range
 
     $result = $service->spreadsheets_values->get($spreadsheetId, $range);
     $values = $result->getValues();
@@ -59,8 +61,6 @@ $app->get("/myello", function ($request, $response) {
 
 $app->get("/songlist", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
-    // var_dump($renderer);
-    //var_dump($_ENV);
 
     // Your Google API client logic goes here
     $client = new Google_Client();
@@ -80,7 +80,7 @@ $app->get("/songlist", function ($request, $response) {
     ]);
     $service = new Google_Service_Sheets($client);
     $spreadsheetId = '1iT0zucmS9y1cMBHIpujU2IYb_ehfkK3Eu1t1QdnNtfg';
-    $range = 'Sheet1!A1:D1000'; // Example A1 notation range
+    $range = 'Sheet1!A2:F1001'; // 1000 Rows
 
     $result = $service->spreadsheets_values->get($spreadsheetId, $range);
     $values = $result->getValues();
