@@ -17,6 +17,18 @@ Slim and Tools
 VS Code with PHP
 `brew services start php`
 
+### Environment
+.env - exists for each websever
+
+.htaccess -- For serving from subdirectory
+```bash
+RewriteEngine On
+RewriteBase /singAlongJam
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+```
+
 ### Publishing 
 In osilabs.com home dir there is a checkout called SingAlongJam
 
