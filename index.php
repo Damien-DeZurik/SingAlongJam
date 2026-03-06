@@ -14,19 +14,22 @@ $dotenv->load();
 
 $app = AppFactory::create();
 
+$app->setBasePath($_ENV['BASE_DIR']);
+//var_dump($app->getBasePath());
+
 // Get the default error handler and inject a custom logger if needed
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 $errorHandler = $errorMiddleware->getDefaultErrorHandler();
 $errorHandler->forceContentType('application/json'); // Example: force JSON responses for errors
 
 // Works
-$app->get("/{$_ENV['BASE_DIR']}/", function (Request $request, Response $response, $args) {
+$app->get("/", function (Request $request, Response $response, $args) {
     $response->getBody()->write("Myello?");
     return $response;
 });
 
 // works - JSON output of rows and columns 
-$app->get("/{$_ENV['BASE_DIR']}/sheet-data", function (Request $request, Response $response, $args) {
+$app->get("/sheet-data", function (Request $request, Response $response, $args) {
     // Your Google API client logic goes here
     $client = new Google_Client();
     $client->setApplicationName('googleSheetsAPI-SA');
@@ -43,7 +46,7 @@ $app->get("/{$_ENV['BASE_DIR']}/sheet-data", function (Request $request, Respons
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get("/{$_ENV['BASE_DIR']}/myello", function ($request, $response) {
+$app->get("/myello", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
     
@@ -54,7 +57,7 @@ $app->get("/{$_ENV['BASE_DIR']}/myello", function ($request, $response) {
     return $renderer->render($response, 'songlist.phtml', $viewData);
 })->setName('profile');
 
-$app->get("/{$_ENV['BASE_DIR']}/songlist", function ($request, $response) {
+$app->get("/songlist", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
     //var_dump($_ENV);
@@ -87,7 +90,6 @@ $app->get("/{$_ENV['BASE_DIR']}/songlist", function ($request, $response) {
     ];
 
     return $renderer->render($response, 'songlist.phtml', $viewData);
-
 
 })->setName('profile');
 
