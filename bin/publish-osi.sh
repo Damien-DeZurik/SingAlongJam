@@ -1,5 +1,5 @@
 # Remove existing site
-rm -rfv ~/public_html/singAlongJam/*
+rm -rf ~/public_html/singAlongJam/*
 cp -rp ~/SingAlongJam/* ~/public_html/singAlongJam/
 
 # Set up environment
