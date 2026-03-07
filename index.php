@@ -51,7 +51,7 @@ $app->get("/songlist", function ($request, $response) {
     ]);
     $service = new Google_Service_Sheets($client);
     $spreadsheetId = '1iT0zucmS9y1cMBHIpujU2IYb_ehfkK3Eu1t1QdnNtfg';
-    $range = 'Sheet1!A2:F1001'; // 1000 Rows
+    $range = 'Live!A2:F1001'; // 1000 Rows
 
     $result = $service->spreadsheets_values->get($spreadsheetId, $range);
     $values = $result->getValues();
