@@ -10,26 +10,16 @@
 
 <style>
 body {font-family: "Lato", sans-serif}
-.mySlides {display: none}
-.show-element { display: block; }
-.hide-element { display: none; }
 .is-hidden {display: none;}
 </style>
 
 <script>
+// Toggle the visibility of elements with the class "chord-container"
 function toggleVisibility() {
-  var element = document.getElementById('chord-container');
-  element.classList.toggle('is-hidden');
-}
-function toggleChords(element) {
-    const chordContainer = element.nextElementSibling;
-    if (chordContainer.classList.contains("hide-element")) {
-        chordContainer.classList.remove("hide-element");
-        chordContainer.classList.add("show-element");
-    } else {
-        chordContainer.classList.remove("show-element");
-        chordContainer.classList.add("hide-element");
-    }
+    const elements = document.querySelectorAll('.chord-container');
+    elements.forEach(element => {
+        element.classList.toggle('is-hidden');
+    });
 }
 </script>
 
