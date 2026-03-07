@@ -3,10 +3,19 @@
 
 <!-- The Songs Header Section -->
 <div class="w3-black" id="tour">
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-    <h2 class="w3-wide w3-center">Song List</h2>
-    <p class="w3-opacity w3-center"><i>Select a song for the lyrics</i></p><br>
-</div>
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+        
+        <h2 class="w3-wide w3-center">Sing Along Jam</h2>
+        <p class="w3-opacity w3-center"><i>Tap a song for the lyrics</i></p>
+
+        <div class="w3-display-container">
+            <div class="w3-padding w3-display-topright">
+                <button class="w3-button w3-khaki" onclick="toggleVisibility();">Show Chords</button>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 <?php foreach ($list as $item): ?>
@@ -15,12 +24,14 @@
         <h1 class="" style="margin: 0; padding: 0;">
             <a href="<?= $item[3] ?? "#"?>"><?= $item[0] ?></a>
         </h1>
+            <?= array_key_exists(1, $item) ? '<small style="margin: 0; padding: 0;">' . $item[1] . '</small>' : "" ?>
 
-        <?= array_key_exists(1, $item) ? '<small style="margin: 0; padding: 0;">' . $item[1] . '</small>' : "" ?>
-        <?= array_key_exists(5, $item) ? '<h3 style="margin: 0; padding: 0;">Capo ' . $item[5] . '</h3>' : "" ?>
-        <?= array_key_exists(4, $item) ? '<h3 class="w3-orange"style="margin: 0; padding: 0;">' . $item[4] . '</h3>' : "" ?>
-
+        <div class="is-hidden" id="chord-container">
+            <?= array_key_exists(5, $item) ? '<h3 style="margin: 0; padding: 0;">Capo ' . $item[5] . '</h3>' : "" ?>
+            <?= array_key_exists(4, $item) ? '<h3 class="w3-orange" style="margin: 0; padding: 0;">' . $item[4] . '</h3>' : "" ?>
+        </div>
     </div>
+
 </div>
 <?php endforeach; ?>
 
