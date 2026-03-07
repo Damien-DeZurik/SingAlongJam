@@ -85,11 +85,11 @@ $app->get("/sheet-data", function (Request $request, Response $response, $args) 
 $app->get("/myello", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
     // var_dump($renderer);
-    
+
     $viewData = [
         'name' => 'Damien',
     ];
-    
+
     return $renderer->render($response, 'songlist.phtml', $viewData);
 })->setName('profile');
 
