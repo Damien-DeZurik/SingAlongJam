@@ -30,35 +30,6 @@ $app->get("/", function (Request $request, Response $response, $args) {
     return $response;
 });
 
-// works - JSON output of rows and columns 
-$app->get("/sheet-data", function (Request $request, Response $response, $args) {
-    // Your Google API client logic goes here
-    $client = new Google_Client();
-    $client->setApplicationName('googleSheetsAPI-SA');
-    $client->setScopes(Google_Service_Sheets::SPREADSHEETS_READONLY);
-    $client->setAuthConfig('credentials.json');
-    $service = new Google_Service_Sheets($client);
-    $spreadsheetId = '1iT0zucmS9y1cMBHIpujU2IYb_ehfkK3Eu1t1QdnNtfg';
-    $range = 'Sheet1!A1:F1000'; // Example A1 notation range
-
-    $result = $service->spreadsheets_values->get($spreadsheetId, $range);
-    $values = $result->getValues();
-
-    $response->getBody()->write(json_encode($values));
-    return $response->withHeader('Content-Type', 'application/json');
-});
-
-$app->get("/myello", function ($request, $response) {
-    $renderer = new PhpRenderer(__DIR__ . '/templates');
-    // var_dump($renderer);
-    
-    $viewData = [
-        'name' => 'Damien',
-    ];
-    
-    return $renderer->render($response, 'songlist.phtml', $viewData);
-})->setName('profile');
-
 $app->get("/songlist", function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/templates');
 
@@ -91,6 +62,35 @@ $app->get("/songlist", function ($request, $response) {
 
     return $renderer->render($response, 'songlist.phtml', $viewData);
 
+})->setName('profile');
+
+// works - JSON output of rows and columns 
+$app->get("/sheet-data", function (Request $request, Response $response, $args) {
+    // Your Google API client logic goes here
+    $client = new Google_Client();
+    $client->setApplicationName('googleSheetsAPI-SA');
+    $client->setScopes(Google_Service_Sheets::SPREADSHEETS_READONLY);
+    $client->setAuthConfig('credentials.json');
+    $service = new Google_Service_Sheets($client);
+    $spreadsheetId = '1iT0zucmS9y1cMBHIpujU2IYb_ehfkK3Eu1t1QdnNtfg';
+    $range = 'Sheet1!A1:F1000'; // Example A1 notation range
+
+    $result = $service->spreadsheets_values->get($spreadsheetId, $range);
+    $values = $result->getValues();
+
+    $response->getBody()->write(json_encode($values));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->get("/myello", function ($request, $response) {
+    $renderer = new PhpRenderer(__DIR__ . '/templates');
+    // var_dump($renderer);
+    
+    $viewData = [
+        'name' => 'Damien',
+    ];
+    
+    return $renderer->render($response, 'songlist.phtml', $viewData);
 })->setName('profile');
 
 $app->run();
